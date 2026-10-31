@@ -23,7 +23,7 @@ test("User cannot continue checkout without first name", async ({ page, inventor
     await cartPage.checkout();
     await checkoutPage.fillForm(checkoutInfo.emptyCheckoutInfo.firstName,checkoutInfo.validCheckoutInfo.lastName,checkoutInfo.validCheckoutInfo.zipCode);
     await checkoutPage.continue();
-    await expect(page.getByRole("heading", { name: "Error: First Name is required" })).toBeVisible();
+    await expect(page.getByRole("alert")).toContainText("Error: First Name is required");
 });
 
 test("User cannot continue checkout without last name", async ({ page, inventoryPage, cartPage, checkoutPage }) => {
@@ -32,7 +32,7 @@ test("User cannot continue checkout without last name", async ({ page, inventory
     await cartPage.checkout();
     await checkoutPage.fillForm(checkoutInfo.validCheckoutInfo.firstName,checkoutInfo.emptyCheckoutInfo.lastName,checkoutInfo.validCheckoutInfo.zipCode);
     await checkoutPage.continue();
-    await expect(page.getByRole("heading", { name: "Error: Last Name is required" })).toBeVisible();
+    await expect(page.getByRole("alert")).toContainText("Error: Last Name is required");
 });
 
 test("User cannot continue checkout without zip/postal code", async ({ page, inventoryPage, cartPage, checkoutPage }) => {
@@ -41,7 +41,7 @@ test("User cannot continue checkout without zip/postal code", async ({ page, inv
     await cartPage.checkout();
     await checkoutPage.fillForm(checkoutInfo.validCheckoutInfo.firstName,checkoutInfo.validCheckoutInfo.lastName,checkoutInfo.emptyCheckoutInfo.zipCode);
     await checkoutPage.continue();
-    await expect(page.getByRole("heading", { name: "Error: Postal Code is required" })).toBeVisible();
+    await expect(page.getByRole("alert")).toContainText("Error: Postal Code is required");
 });
 
 test("User can cancel checkout and return to cart", async ({ page, inventoryPage, cartPage, checkoutPage }) => {
@@ -68,7 +68,7 @@ test("@regression User cannot continue checkout with all fields empty", async ({
     await cartPage.checkout();
     await checkoutPage.fillForm(checkoutInfo.emptyCheckoutInfo.firstName,checkoutInfo.emptyCheckoutInfo.lastName,checkoutInfo.emptyCheckoutInfo.zipCode);
     await checkoutPage.continue();
-    await expect(page.getByRole("heading", { name: "Error: First Name is required" })).toBeVisible();
+    await expect(page.getByRole("alert")).toContainText("Error: First Name is required");
 });
 
 test("User can cancel checkout from the overview page", async ({ page, inventoryPage, cartPage, checkoutPage }) => {
@@ -87,7 +87,7 @@ test("User can view the added product in checkout overview", async ({ page, inve
     await cartPage.checkout();
     await checkoutPage.fillForm(checkoutInfo.validCheckoutInfo.firstName,checkoutInfo.validCheckoutInfo.lastName,checkoutInfo.validCheckoutInfo.zipCode);
     await checkoutPage.continue();
-    await expect(page.getByRole("link", { name: "Sauce Labs Backpack" })).toBeVisible();
+    await expect(page.getByRole("button", {name: "View details for Sauce Labs Backpack"})).toBeVisible();
 });
 
 test("@regression User can view the order total in checkout overview", async ({ page, inventoryPage, cartPage, checkoutPage }) => {
