@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "End-to-end automation project built with Playwright and JavaScript.",
   "main": "index.js",
-  "scripts": {},
+  "scripts": { "test": "playwright test"},
   "keywords": ["playwright","automation","e2e", "javascript"],
   "author": "Ana",
   "license": "MIT",
